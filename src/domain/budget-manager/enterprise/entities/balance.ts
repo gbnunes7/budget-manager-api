@@ -1,7 +1,7 @@
 import { Entity } from '../../../../core/entitites/entity';
 import type { UniqueEntityId } from '../../../../core/entitites/unique-entity-id';
 
-interface BalanceProps {
+export interface BalanceProps {
   userId: UniqueEntityId;
   amount: number;
   createdAt: Date;

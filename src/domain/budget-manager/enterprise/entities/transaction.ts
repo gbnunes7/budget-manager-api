@@ -1,7 +1,7 @@
 import { Entity } from '../../../../core/entitites/entity';
 import type { UniqueEntityId } from '../../../../core/entitites/unique-entity-id';
 
-interface TransactionProps {
+export interface TransactionProps {
   categoryId: UniqueEntityId;
   amount: number;
   description: string;
@@ -18,6 +18,10 @@ class Transaction extends Entity<TransactionProps> {
 
   get amount(): number {
     return this.props.amount;
+  }
+
+  get balanceId(): UniqueEntityId {
+    return this.props.balanceId;
   }
 
   get description(): string {

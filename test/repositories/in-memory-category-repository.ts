@@ -7,4 +7,15 @@ export class InMemoryCategoryRepository implements ICategoryRepository {
   async create(category: Category): Promise<void> {
     this.category.push(category);
   }
+
+  async delete(category: Category): Promise<void> {
+    this.category = this.category.filter(
+      (c) => !c.id.equals(category.id),
+    );
+  }
+
+  async findById(id: string): Promise<Category | null> {
+    return this.category.find((c) => c.id.toString() === id) || null;
+  }
+
 }

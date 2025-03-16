@@ -8,4 +8,22 @@ export class InMemoryBalanceRepository implements IBalanceRepository {
     this.balances.push(balance);
     return balance;
   }
+
+  async findByUserId(userId: string): Promise<Balance | null> {
+    return (
+      this.balances.find((balance) => balance.userId.toString() === userId) ||
+      null
+    );
+  }
+
+  async save(balance: Balance): Promise<void> {
+    
+    const index = this.balances.findIndex((b) => b.userId.toString() === balance.userId.toString());
+
+    if (index !== -1) {
+      this.balances[index] = balance; 
+    } else {
+      this.balances.push(balance); 
+    }
+  }
 }

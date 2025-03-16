@@ -1,5 +1,8 @@
-import { Entity } from '../../../../core/entitites/entity';
+import { AggregateRoot } from '../../../../core/entitites/aggregate-root';
 import type { UniqueEntityId } from '../../../../core/entitites/unique-entity-id';
+import { DomainEvents } from '../../../../core/events/domain-events';
+import { TransactionCreatedEvent } from '../events/transaction-created-event';
+import { TransactionDeletedEvent } from '../events/transaction-deleted-event';
 
 export interface TransactionProps {
   categoryId: UniqueEntityId;
@@ -11,7 +14,7 @@ export interface TransactionProps {
   userId: UniqueEntityId;
 }
 
-class Transaction extends Entity<TransactionProps> {
+class Transaction extends AggregateRoot<TransactionProps> {
   get categoryId(): UniqueEntityId {
     return this.props.categoryId;
   }
@@ -61,7 +64,16 @@ class Transaction extends Entity<TransactionProps> {
   }
 
   public static create(props: TransactionProps, id?: string): Transaction {
-    return new Transaction(props, id);
+
+    const transaction = new Transaction(props, id);
+
+    transaction.addDomainEvent(new TransactionCreatedEvent(transaction));
+
+    return transaction;
+  }
+
+  public delete(): void {
+    this.addDomainEvent(new TransactionDeletedEvent(this));
   }
 }
 

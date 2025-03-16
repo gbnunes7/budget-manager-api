@@ -12,6 +12,19 @@ class Entity<Props> {
     this._id = new UniqueEntityId(id);
     this.props = props;
   }
+
+  // biome-ignore lint:
+  public equals(entity: Entity<any>) {
+    if (entity === this) {
+      return true
+    }
+
+    if (entity.id === this._id) {
+      return true
+    }
+
+    return false
+  }
 }
 
 export { Entity };

@@ -1,6 +1,6 @@
 import { expect, it, describe, beforeEach } from 'vitest';
 import { InMemoryTransactionRepository } from '../../../../../test/repositories/in-memory-transaction-repository';
-import { CreateTransactionUseCases } from './create-transaction';
+import { CreateTransactionUseCases } from './create-transaction-use-case';
 import { UniqueEntityId } from '../../../../core/entitites/unique-entity-id';
 
 let transactionRepository: InMemoryTransactionRepository;

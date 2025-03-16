@@ -1,6 +1,6 @@
 import { expect, it, describe, beforeEach } from 'vitest';
 import { InMemoryCategoryRepository } from '../../../../../test/repositories/in-memory-category-repository';
-import { CreateCategoryUseCases } from './create-category';
+import { CreateCategoryUseCases } from './create-category-use-case';
 
 let categoryRepository: InMemoryCategoryRepository;
 let sut: CreateCategoryUseCases;

@@ -1,5 +1,5 @@
 import { expect, it, describe, beforeEach } from 'vitest';
-import { CreateBalanceUseCases } from './create-balance';
+import { CreateBalanceUseCases } from './create-balance-use-case';
 import { InMemoryBalanceRepository } from '../../../../../test/repositories/in-memory-balance-repository';
 
 let balanceRepository: InMemoryBalanceRepository;

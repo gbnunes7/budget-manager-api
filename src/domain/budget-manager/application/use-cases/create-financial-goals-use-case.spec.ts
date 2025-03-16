@@ -1,6 +1,7 @@
 import { expect, it, describe, beforeEach } from 'vitest';
 import { InMemoryFinancialGoalsRepository } from '../../../../../test/repositories/in-memory-financial-goals-repository';
-import { CreateFinancialGoalsUseCases } from './create-financial-goals';
+import { CreateFinancialGoalsUseCases } from './create-financial-goals-use-case';
+
 
 let financialGoalsRepository: InMemoryFinancialGoalsRepository;
 let sut: CreateFinancialGoalsUseCases;

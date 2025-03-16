@@ -31,6 +31,25 @@ class Balance extends Entity<BalanceProps> {
   static create(props: BalanceProps, id?: string): Balance {
     return new Balance(props, id);
   }
+
+  updateAmount(amountDelta: number, updatedAt: Date, operationType: "INCOME" | "EXPENSE"): Balance {
+    if (operationType === 'INCOME') {
+      this.props.amount += amountDelta;
+    } else if (operationType === 'EXPENSE') {
+      this.props.amount -= amountDelta;
+    }
+  
+    this.props.createdAt = updatedAt;
+    return this;
+  }
+
+  static createEmpty(userId: UniqueEntityId): Balance {
+    return new Balance({
+      userId,
+      amount: 0,
+      createdAt: new Date(),
+    });
+  }
 }
 
 export { Balance };

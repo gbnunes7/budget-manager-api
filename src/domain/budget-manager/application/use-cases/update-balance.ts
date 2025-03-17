@@ -66,5 +66,3 @@ class UpdateBalanceUseCase {
 }
 
 export { UpdateBalanceUseCase };
-
-//TODO: create a event to create a balance when a user is created

@@ -35,7 +35,7 @@ class CreateBalanceUseCases {
       userId: new UniqueEntityId(userId),
     });
 
-    if (amount <= 0) {
+    if (amount < 0) {
       return left(new AmountMustBeGreaterThanZeroError());
     }
 

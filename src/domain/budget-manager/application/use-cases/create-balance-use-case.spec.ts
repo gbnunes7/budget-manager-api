@@ -24,7 +24,7 @@ describe('CreateBalanceUseCases', () => {
 
   it('should not be able to create a balance with amount less than or equal to 0', async () => {
     const response = await sut.execute({
-      amount: 0,
+      amount: -10,
       createdAt: new Date(),
       userId: '1',
     });

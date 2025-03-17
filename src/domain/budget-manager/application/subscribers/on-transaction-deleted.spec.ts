@@ -62,7 +62,6 @@ describe('OnTransactionDeleted', () => {
     await new Promise((resolve) => setTimeout(resolve, 10));
   
     const balance = await balanceRepository.findByUserId('user-1');
-    console.log('Balance after deletion:', balance);
   
     expect(balance).toBeTruthy();
     expect(balance?.amount).toBe(0); 

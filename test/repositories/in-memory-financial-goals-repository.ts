@@ -9,4 +9,16 @@ export class InMemoryFinancialGoalsRepository
   async create(financialGoals: FinancialGoals): Promise<void> {
     this.financialGoals.push(financialGoals);
   }
+
+  async delete(financialGoalsId: string): Promise<void> {
+    this.financialGoals = this.financialGoals.filter(
+      (financialGoal) => financialGoal.id.toString() !== financialGoalsId,
+    );
+  }
+
+  async findById(financialGoalsId: string): Promise<FinancialGoals | null> {
+    return this.financialGoals.find(
+      (financialGoal) => financialGoal.id.toString() === financialGoalsId,
+    ) || null;
+  }
 }

@@ -28,10 +28,10 @@ export class OnTransactionDeleted implements EventHandler {
     const balance = await this.balanceRepository.findByUserId(
       transaction.userId.toString(),
     );
-    const effectiveAmount = transaction.type === 'INCOME' ? -transaction.amount : transaction.amount;
+    const effectiveAmount =
+      transaction.type === 'INCOME' ? -transaction.amount : transaction.amount;
 
     if (!balance) {
-      console.log('teste', effectiveAmount)
       await this.updateBalanceUseCase.execute({
         userId: transaction.userId.toString(),
         amount: transaction.amount,
@@ -39,7 +39,6 @@ export class OnTransactionDeleted implements EventHandler {
         createdAt: transaction.date,
       });
     } else {
-      console.log('teste', effectiveAmount)
       await this.updateBalanceUseCase.execute({
         userId: transaction.userId.toString(),
         amount: effectiveAmount,

@@ -19,6 +19,7 @@ describe('DeleteFinancialGoalsUseCases', () => {
       goalValue: 1000,
       description: 'Test financial goal',
       goalDate: new Date(),
+      userId: 'test-user-id',
     });
 
     await financialRepository.create(financialGoal);

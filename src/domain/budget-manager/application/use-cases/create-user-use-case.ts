@@ -3,6 +3,7 @@ import type { IUserRepository } from '../repositories/user-repository';
 import * as bcrypt from 'bcryptjs';
 import { userAlreadyExistsError } from './errors/user-already-exists-error';
 import { type Either, left, right } from '../../../../core/types/either';
+import type { HashGenerator } from '../crypthography/hash-generator';
 
 export interface CreateUserRequest {
   name: string;
@@ -15,7 +16,10 @@ interface CreateUserResponse {
 }
 
 class CreateUserUseCases {
-  constructor(private userRepository: IUserRepository) {}
+  constructor(
+    private userRepository: IUserRepository,
+    private hashGenerator: HashGenerator,
+  ) {}
 
   async execute(
     request: CreateUserRequest,
@@ -28,7 +32,7 @@ class CreateUserUseCases {
       return left(new userAlreadyExistsError());
     }
 
-    const passwordHashed = await bcrypt.hash(request.passwordHash, 8);
+    const passwordHashed = await this.hashGenerator.hash(request.passwordHash);
 
     const user = User.create({
       name: request.name,

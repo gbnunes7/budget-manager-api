@@ -12,6 +12,7 @@ interface CreateFinancialGoalsUseCasesRequest {
   goalDate: Date;
   description: string;
   createdAt: Date;
+  userId: string;
 }
 
 interface CreateFinancialGoalsUseCasesResponse {
@@ -26,6 +27,7 @@ class CreateFinancialGoalsUseCases {
     description,
     goalDate,
     goalValue,
+    userId,
   }: CreateFinancialGoalsUseCasesRequest): Promise<
     Either<
       | GoalValueMustBeGreaterThanZeroError
@@ -39,6 +41,7 @@ class CreateFinancialGoalsUseCases {
       description,
       goalDate,
       goalValue,
+      userId,
     });
 
     if (goalValue <= 0) {

@@ -5,20 +5,23 @@ import * as bcrypt from 'bcryptjs';
 import { InvalidCredentialsError } from './errors/invalid-credentials-error';
 import { UniqueEntityId } from '../../../../core/entitites/unique-entity-id';
 import { User } from '../../enterprise/entities/user';
+import { FakeHasher } from '../../../../../test/cryptography/fake-hasher';
 
 let userRepository: InMemoryUserRepository;
 let sut: CreateSessionToUserUseCase;
+let fakeComparer: FakeHasher;
 
 describe('CreateSessionToUserUseCase', () => {
   beforeEach(() => {
     userRepository = new InMemoryUserRepository();
-    sut = new CreateSessionToUserUseCase(userRepository);
+    fakeComparer = new FakeHasher();
+    sut = new CreateSessionToUserUseCase(userRepository, fakeComparer);
   });
 
   it('should authenticate a user with correct credentials', async () => {
     const email = 'test@example.com';
     const password = 'securepassword';
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await fakeComparer.hash(password);
 
     const user = User.create(
       {
@@ -56,7 +59,7 @@ describe('CreateSessionToUserUseCase', () => {
     const email = 'test@example.com';
     const password = 'securepassword';
     const wrongPassword = 'wrongpassword';
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await fakeComparer.hash(password);
 
     const user = User.create(
       {

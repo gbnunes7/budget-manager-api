@@ -2,7 +2,6 @@ import { expect, it, describe, beforeEach } from 'vitest';
 import { InMemoryFinancialGoalsRepository } from '../../../../../test/repositories/in-memory-financial-goals-repository';
 import { CreateFinancialGoalsUseCases } from './create-financial-goals-use-case';
 
-
 let financialGoalsRepository: InMemoryFinancialGoalsRepository;
 let sut: CreateFinancialGoalsUseCases;
 
@@ -18,6 +17,7 @@ describe('CreateFinancialGoalsUseCase', () => {
       goalDate: new Date('2026-12-31'),
       goalValue: 50000,
       createdAt: new Date(),
+      userId: '1',
     });
 
     expect(response.isRight()).toBe(true);
@@ -30,6 +30,7 @@ describe('CreateFinancialGoalsUseCase', () => {
       goalDate: new Date('2026-12-31'),
       goalValue: -50000,
       createdAt: new Date(),
+      userId: '1',
     });
 
     expect(response.isLeft()).toBe(true);
@@ -42,6 +43,7 @@ describe('CreateFinancialGoalsUseCase', () => {
       goalDate: new Date('2021-12-31'),
       goalValue: 50000,
       createdAt: new Date(),
+      userId: '1',
     });
 
     expect(response.isLeft()).toBe(true);
@@ -54,6 +56,7 @@ describe('CreateFinancialGoalsUseCase', () => {
       goalDate: new Date('2026-12-31'),
       goalValue: 50000,
       createdAt: new Date(),
+      userId: '1',
     });
 
     expect(response.isLeft()).toBe(true);

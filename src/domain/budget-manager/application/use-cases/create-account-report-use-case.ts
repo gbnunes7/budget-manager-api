@@ -15,10 +15,6 @@ class GenerateAccountReportUseCase {
   constructor(private accountReportRepository: IAccountReportRepository) {}
 
   async execute(input: GenerateAccountReportInput): Promise<void> {
-    console.log(
-      '[DEBUG] Gerando relatório financeiro para o usuário:',
-      input.userId,
-    );
 
     const report = AccountReport.generateReport(
       new UniqueEntityId(input.userId),

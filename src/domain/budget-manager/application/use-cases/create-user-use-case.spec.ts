@@ -1,14 +1,17 @@
 import { expect, it, describe, beforeEach } from 'vitest';
 import { InMemoryUserRepository } from '../../../../../test/repositories/in-memory-user-repository';
 import { CreateUserUseCases } from './create-user-use-case';
+import { FakeHasher } from '../../../../../test/cryptography/fake-hasher';
 
 let userRepository: InMemoryUserRepository;
 let sut: CreateUserUseCases;
+let fakeHasher: FakeHasher;
 
 describe('CreateUserUseCase', () => {
   beforeEach(() => {
     userRepository = new InMemoryUserRepository();
-    sut = new CreateUserUseCases(userRepository);
+    fakeHasher = new FakeHasher();
+    sut = new CreateUserUseCases(userRepository, fakeHasher);
   });
 
   it('should create a user', async () => {

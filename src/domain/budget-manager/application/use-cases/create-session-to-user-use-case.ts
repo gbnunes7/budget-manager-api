@@ -1,10 +1,13 @@
 import { type Either, left, right } from '../../../../core/types/either';
 import type { IUserRepository } from '../repositories/user-repository';
-import * as bcrypt from 'bcryptjs';
 import { InvalidCredentialsError } from './errors/invalid-credentials-error';
+import type { HashComparer } from '../crypthography/hash-comparer';
 
 class CreateSessionToUserUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(
+    private readonly userRepository: IUserRepository,
+    private readonly hashComparer: HashComparer,
+  ) {}
 
   async execute(
     email: string,
@@ -21,7 +24,10 @@ class CreateSessionToUserUseCase {
       return left(new InvalidCredentialsError());
     }
 
-    const passwordMatch = await bcrypt.compare(passwordHash, user.passwordHash);
+    const passwordMatch = await this.hashComparer.compare(
+      passwordHash,
+      user.passwordHash,
+    );
 
     if (!passwordMatch) {
       return left(new InvalidCredentialsError());

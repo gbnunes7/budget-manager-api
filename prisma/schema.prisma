@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+model User {
+  id            String @id @default(uuid())
+  email         String @unique
+  name          String
+  password_hash String
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  FinancialGoals FinancialGoals?
+  Balance        Balance?
+  Transactions   Transactions[]
+
+  @@map("users")
+}
+
+model Category {
+  id        String       @id @default(uuid())
+  name      String
+  type      CategoryType
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime?    @updatedAt @map("updated_at")
+
+  Transactions Transactions[]
+
+  @@map("categories")
+}
+
+model FinancialGoals {
+  id          String    @id @default(uuid())
+  goalValue   Float     @map("goal_value")
+  goalDate    DateTime  @map("goal_date")
+  description String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  user_id String @unique
+  user    User   @relation(fields: [user_id], references: [id])
+
+  @@map("financial_goals")
+}
+
+model Balance {
+  id        String    @id @default(uuid())
+  amount    Float
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  user_id      String         @unique
+  user         User           @relation(fields: [user_id], references: [id])
+  Transactions Transactions[]
+
+  @@map("balances")
+}
+
+model Transactions {
+  id          String          @id @default(uuid())
+  amount      Float
+  description String
+  date        DateTime
+  type        TransactionType
+
+  balanceId  String @map("balance_id")
+  userId     String @map("user_id")
+  categoryId String @map("category_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [userId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  balance  Balance  @relation(fields: [balanceId], references: [id])
+
+  @@map("transactions")
+}

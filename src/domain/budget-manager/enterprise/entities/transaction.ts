@@ -75,6 +75,12 @@ class Transaction extends AggregateRoot<TransactionProps> {
   public delete(): void {
     this.addDomainEvent(new TransactionDeletedEvent(this));
   }
+
+  public toJSON(): TransactionProps {
+    return {
+      ...this.props,
+    };
+  }
 }
 
 export { Transaction };

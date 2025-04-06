@@ -4,8 +4,9 @@ import type { Category } from '../../src/domain/budget-manager/enterprise/entiti
 export class InMemoryCategoryRepository implements ICategoryRepository {
   public category: Category[] = [];
 
-  async create(category: Category): Promise<void> {
+  async create(category: Category): Promise<Category> {
     this.category.push(category);
+    return category;
   }
 
   async delete(category: Category): Promise<void> {

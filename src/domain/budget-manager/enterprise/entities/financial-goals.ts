@@ -5,11 +5,16 @@ interface FinancialGoalsProps {
   goalDate: Date;
   createdAt: Date;
   description: string;
+  userId: string;
 }
 
 class FinancialGoals extends Entity<FinancialGoalsProps> {
   get goalValue(): number {
     return this.props.goalValue;
+  }
+
+  get userId(): string {
+    return this.props.userId;
   }
 
   get goalDate(): Date {

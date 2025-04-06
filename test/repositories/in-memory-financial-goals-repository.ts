@@ -6,8 +6,9 @@ export class InMemoryFinancialGoalsRepository
 {
   public financialGoals: FinancialGoals[] = [];
 
-  async create(financialGoals: FinancialGoals): Promise<void> {
+  async create(financialGoals: FinancialGoals): Promise<FinancialGoals> {
     this.financialGoals.push(financialGoals);
+    return financialGoals
   }
 
   async delete(financialGoalsId: string): Promise<void> {

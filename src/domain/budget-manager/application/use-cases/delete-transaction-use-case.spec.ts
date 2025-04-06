@@ -35,8 +35,10 @@ describe('DeleteTransactionUseCases', () => {
   });
 
   it('should throw an error if the transaction does not exist', async () => {
-    await expect(sut.execute('1')).rejects.toThrowError(
-      'Transaction not found',
-    );
+    const transactionId = 'non-existing-transaction-id';
+
+    const transactionDeleted = await sut.execute(transactionId);
+
+    expect(transactionDeleted.isLeft()).toBe(true);
   });
 });

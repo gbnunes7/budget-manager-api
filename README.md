@@ -25,21 +25,13 @@ This API allows users to manage financial categories, track transactions, set fi
 - Middleware for automatic event dispatching
 
 ## 📂 Project Structure
+```
 ├── biome.json
 ├── docker-compose.yaml
 ├── package.json
 ├── pnpm-lock.yaml
 ├── prisma
 │   ├── migrations
-│   │   ├── 20250320232612_init_prisma
-│   │   │   └── migration.sql
-│   │   ├── 20250323155555_insert_new_model
-│   │   │   └── migration.sql
-│   │   ├── 20250323172118_insert_new_model
-│   │   │   └── migration.sql
-│   │   ├── 20250323233715_insert_new_models
-│   │   │   └── migration.sql
-│   │   └── migration_lock.toml
 │   └── schema.prisma
 ├── README.md
 ├── src
@@ -217,6 +209,7 @@ This API allows users to manage financial categories, track transactions, set fi
 ├── tsconfig.json
 ├── vitest.config.e2e.ts
 └── vitest.config.ts
+```
 
 ## 🧪 Running Tests
 The project uses Vitest for unit and integration tests.

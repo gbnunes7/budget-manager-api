@@ -271,4 +271,4 @@ Public API documentation (Swagger or Redoc)
 ## 👤 Author
 
 Gabriel Melo
-(GitHub)[https://github.com/gbnunes7]
+[GitHub](https://github.com/gbnunes7)

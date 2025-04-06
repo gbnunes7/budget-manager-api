@@ -23,7 +23,8 @@ export class DomainEvents {
     }
   }
   // biome-ignore lint:
-  private static dispatchAggregateEvents(aggregate: AggregateRoot<any>) { //dispatch all events from an aggregate
+  private static dispatchAggregateEvents(aggregate: AggregateRoot<any>) {
+    //dispatch all events from an aggregate
     // biome-ignore lint:
     aggregate.domainEvents.forEach((event: DomainEvent) =>
       // biome-ignore lint:
@@ -37,7 +38,7 @@ export class DomainEvents {
   ) {
     // biome-ignore lint:
     const index = this.markedAggregates.findIndex((a) => a.equals(aggregate));
-// biome-ignore lint:
+    // biome-ignore lint:
     this.markedAggregates.splice(index, 1);
   }
 
@@ -54,7 +55,7 @@ export class DomainEvents {
     const aggregate = this.findMarkedAggregateByID(id);
 
     if (aggregate) {
-        // biome-ignore lint:
+      // biome-ignore lint:
       this.dispatchAggregateEvents(aggregate);
       aggregate.clearEvents();
       // biome-ignore lint:
@@ -65,12 +66,13 @@ export class DomainEvents {
   public static register(
     callback: DomainEventCallback,
     eventClassName: string,
-  ) {// biome-ignore lint:
+  ) {
+    // biome-ignore lint:
     const wasEventRegisteredBefore = eventClassName in this.handlersMap;
 
     if (!wasEventRegisteredBefore) {
       // biome-ignore lint:
-        this.handlersMap[eventClassName] = [];
+      this.handlersMap[eventClassName] = [];
     }
 
     // biome-ignore lint:
@@ -87,13 +89,24 @@ export class DomainEvents {
     this.markedAggregates = [];
   }
 
+  public static async dispatchAllEvents() {
+    // biome-ignore lint:
+    for (const aggregate of this.markedAggregates) {
+      // biome-ignore lint:
+      this.dispatchAggregateEvents(aggregate);
+      aggregate.clearEvents();
+    }
+    // biome-ignore lint:
+    this.clearMarkedAggregates();
+  }
+
   private static dispatch(event: DomainEvent) {
     const eventClassName: string = event.constructor.name;
-// biome-ignore lint:
+    // biome-ignore lint:
     const isEventRegistered = eventClassName in this.handlersMap;
 
     if (isEventRegistered) {
-        // biome-ignore lint:
+      // biome-ignore lint:
       const handlers = this.handlersMap[eventClassName];
 
       for (const handler of handlers) {

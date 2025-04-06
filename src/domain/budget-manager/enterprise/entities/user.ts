@@ -34,10 +34,18 @@ class User extends AggregateRoot<UserProps> {
 
   static create(props: UserProps, id?: string): User {
     const user = new User(props, id);
-    
+
     user.addDomainEvent(new UserCreatedEvent(user));
 
     return user;
+  }
+
+  toJson(): UserProps {
+    return {
+      name: this._name,
+      email: this._email,
+      passwordHash: this._passwordHash,
+    };
   }
 }
 
